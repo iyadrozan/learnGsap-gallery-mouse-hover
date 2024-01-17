@@ -1,95 +1,54 @@
-import Image from 'next/image'
+'use client'
 import styles from './page.module.css'
+import { useState } from 'react'
+import Project from '../project'
+import Modal from '../modal'
+
+const projects = [
+  {
+    title: 'NexGen Solutions',
+    src: 'c2montreal.png',
+    link: 'https://github.com/iyadrozan',
+    desc: 'Inovasi Teknologi Terkini',
+    color: '#000000'
+  },
+  {
+    title: 'Architectura Design',
+    src: 'officestudio.png',
+    link: 'https://github.com/iyadrozan',
+    desc: 'Desain Arsitektur Modern',
+    color: '#8C8C8C'
+  },
+  {
+    title: 'TechExpress Railway',
+    src: 'locomotive.png',
+    link: 'https://github.com/iyadrozan',
+    desc: 'Solusi Transportasi Canggih',
+    color: '#EFE8D3'
+  },
+  {
+    title: 'Corporate Identity Solutions',
+    src: 'silencio.png',
+    link: 'https://github.com/iyadrozan',
+    desc: 'Pengembangan Identitas Bisnis',
+    color: '#706D73'
+  }
+]
 
 export default function Home() {
+
+  const [modal, setModal] = useState({active: false, index: 0})
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+      <div className={styles.body}>
+        {
+          projects.map( (project, index) => {
+            return <Project index={index} title={project.title} setModal={setModal} link={project.link} desc={project.desc} key={index} />
+          })
+        }
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Modal modal={modal} projects={projects} />
     </main>
   )
 }
